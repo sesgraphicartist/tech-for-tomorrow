@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech for Tomorrow | Contact</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">T3</div>
+      <div class="logo-text">TechForTomorrow</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="science.html">Science</a></li>
+        <li><a href="innovation.html">Innovation</a></li>
+        <li><a href="sustainability.html">Sustainability</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="interactive-box" style="max-width: 600px; margin: 0 auto;">
+      <form id="contactForm" onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message / Feedback</label>
+          <textarea id="message" rows="4" required placeholder="Type your message here..."></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <p id="response-msg" style="margin-top: 15px; font-weight: bold; color: var(--primary-color);"></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Tech for Tomorrow</p>
+  </footer>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      document.getElementById('response-msg').innerText = `Thank you, ${name}! Your message has been sent successfully.`;
+      document.getElementById('contactForm').reset();
+    }
+  </script>
+</body>
+</html>

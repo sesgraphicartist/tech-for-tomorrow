@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech for Tomorrow | Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">T3</div>
+      <div class="logo-text">TechForTomorrow</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="science.html">Science</a></li>
+        <li><a href="innovation.html">Innovation</a></li>
+        <li><a href="sustainability.html">Sustainability</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Tech for Tomorrow</h1>
+    <p>Exploring Science, Innovation, and Sustainability for a Smarter Future.</p>
+    <a href="science.html" class="btn">Explore Technologies</a>
+  </section>
+
+  <main class="container">
+    <h2 class="section-title">Core Pillars of Tomorrow</h2>
+    
+    <div class="grid">
+      <div class="card">
+        <h3>🔬 Advanced Science</h3>
+        <p>Discover breakthroughs in quantum computing, space exploration, and biotechnology shaping human history.</p>
+      </div>
+      <div class="card">
+        <h3>💡 Cutting-Edge Innovation</h3>
+        <p>Explore how Artificial Intelligence, automation, and smart robotics are transforming everyday life.</p>
+      </div>
+      <div class="card">
+        <h3>🌱 Green Sustainability</h3>
+        <p>Learn how clean energy, circular economics, and eco-friendly tech protect our planet.</p>
+      </div>
+    </div>
+
+    <div class="interactive-box">
+      <h3>Interactive Innovation Pulse</h3>
+      <p id="pulse-text">Click the button below to generate a random Tech-Fact of the Future!</p>
+      <br>
+      <button class="btn" onclick="generateFact()">Generate Tech Fact</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Tech for Tomorrow | Designed for The Graphic Artist Competition</p>
+  </footer>
+
+  <script>
+    const facts = [
+      "Solar energy could supply 100% of global electricity by combining smart grid storage.",
+      "Quantum computers can solve complex molecular simulations in seconds instead of millennia.",
+      "Vertical farming uses 95% less water than traditional agriculture through automated hydroponics.",
+      "AI-driven smart grids reduce carbon emissions by optimizing energy usage in real-time."
+    ];
+
+    function generateFact() {
+      const randomIndex = Math.floor(Math.random() * facts.length);
+      document.getElementById("pulse-text").innerText = facts[randomIndex];
+    }
+  </script>
+</body>
+</html>
