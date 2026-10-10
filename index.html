@@ -1,751 +1,1072 @@
-
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech for Tomorrow | Science, Innovation & Sustainability</title>
+    <title>Tech for Tomorrow | Sarvodaya Higher Secondary School, Usgao-Barazan, Goa</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        cyberDark: '#070b19',
-                        cyberCard: 'rgba(15, 23, 42, 0.75)',
-                        neonCyan: '#00f3ff',
-                        neonEmerald: '#10b981',
-                        neonTeal: '#14b8a6',
-                    },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        emeraldGlow: '#00ff88',
+                        mintGlow: '#a7f3d0',
+                        deepForest: '#081c15',
                     },
                     animation: {
-                        'spin-slow': 'spin 12s linear infinite',
-                        'float': 'float 5s ease-in-out infinite',
-                        'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite alternate',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-medium': 'float 5s ease-in-out infinite',
+                        'float-fast': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
+                        'spin-slow': 'spin 18s linear infinite',
+                        'bounce-soft': 'bounceSoft 2s infinite',
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
                         },
                         pulseGlow: {
-                            '0%': { boxShadow: '0 0 10px rgba(0,243,255,0.2)' },
-                            '100%': { boxShadow: '0 0 25px rgba(0,243,255,0.6)' },
+                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                            '50%': { opacity: '0.9', transform: 'scale(1.05)' },
+                        },
+                        bounceSoft: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
                         }
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        /* Custom UI Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #070b19;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(0, 243, 255, 0.25);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 243, 255, 0.6);
+        /* Base Smooth Scrolling & Background */
+        body {
+            background-color: #040d08;
+            color: #ecfdf5;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Glassmorphism background styles */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(13, 38, 25, 0.55);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 243, 255, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        .light .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(13, 148, 136, 0.25);
+        .glass-card-interactive {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .glow-border {
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        .glass-card-interactive:hover {
+            transform: translateY(-8px) scale(1.01);
+            background: rgba(20, 56, 36, 0.7);
+            border-color: rgba(74, 222, 128, 0.45);
+            box-shadow: 0 15px 35px 0 rgba(34, 197, 94, 0.25);
         }
 
-        /* Background Canvas */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+        .glass-nav {
+            background: rgba(4, 13, 8, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        /* Glowing Text Effects */
+        .text-glow {
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.6);
+        }
+
+        .text-glow-lime {
+            text-shadow: 0 0 18px rgba(0, 255, 136, 0.7);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #040d08;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #166534;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
+        }
+
+        /* Custom Animated Leaf Element */
+        .animated-leaf {
+            filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.5));
         }
     </style>
 </head>
-<body class="bg-cyberDark text-slate-100 dark:bg-cyberDark dark:text-slate-100 transition-colors duration-300 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
-    <!-- Interactive Particle Background Canvas -->
-    <canvas id="particle-canvas"></canvas>
+    <!-- Interactive Background Canvas for Particles & Moving Leaf Physics -->
+    <canvas id="ecoCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-    <header class="sticky top-0 z-50 glass-panel border-b border-cyan-500/20 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Website Brand Logo -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-500 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-cyan-500/30">
-                    <i class="fa-solid fa-atom animate-spin-slow"></i>
-                </div>
-                <div>
-                    <span class="text-xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
-                        TECH<span class="text-white dark:text-white">4</span>TOMORROW
-                    </span>
-                    <p class="text-[10px] font-mono tracking-widest text-cyan-400/80 uppercase">Science • Innovation • Sustainability</p>
-                </div>
+    <!-- Top Glow Background Highlights -->
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-500/20 rounded-full blur-[140px] pointer-events-none z-0 animate-pulse-glow"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-emerald-500/15 rounded-full blur-[160px] pointer-events-none z-0 animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- HEADER & NAVIGATION -->
+        <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
+            <!-- Top Banner for Graphic Artist Contest -->
+            <div class="bg-gradient-to-r from-brand-950 via-brand-800 to-brand-950 border-b border-brand-500/20 py-1.5 px-4 text-center text-xs sm:text-sm font-medium tracking-wide flex justify-between items-center max-w-7xl mx-mx-auto">
+                <span class="inline-flex items-center gap-2 text-brand-300">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emeraldGlow animate-ping"></span>
+                    THE GRAPHIC ARTIST Website Designing Contest Entry
+                </span>
+                <span class="hidden md:inline-block text-emerald-200/80 font-mono text-xs">
+                    Theme: Tech for Tomorrow &bull; Science, Innovation & Sustainability
+                </span>
+                <span class="bg-brand-500/20 text-brand-300 border border-brand-400/30 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">
+                    Goa State Region
+                </span>
             </div>
 
-            <!-- Desktop Navigation Menu -->
-            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-medium">
-                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-cyan-400 bg-cyan-500/10 border border-cyan-500/30">
-                    <i class="fa-solid fa-house"></i><span>Home</span>
-                </button>
-                <button onclick="switchTab('science')" id="nav-science" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
-                    <i class="fa-solid fa-microscope"></i><span>Science</span>
-                </button>
-                <button onclick="switchTab('innovation')" id="nav-innovation" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
-                    <i class="fa-solid fa-lightbulb"></i><span>Innovation</span>
-                </button>
-                <button onclick="switchTab('sustainability')" id="nav-sustainability" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
-                    <i class="fa-solid fa-leaf"></i><span>Sustainability</span>
-                </button>
-                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
-                    <i class="fa-solid fa-envelope"></i><span>Contact</span>
-                </button>
-            </nav>
-
-            <!-- Theme Toggle & Mobile Menu Trigger -->
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleTheme()" class="p-2.5 rounded-xl glass-panel text-cyan-400 hover:text-cyan-200 hover:border-cyan-400 transition-all">
-                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
-                </button>
-                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl glass-panel text-cyan-400">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-cyan-500/20 px-4 py-4 space-y-2">
-            <button onclick="switchTab('home')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-cyan-400 bg-cyan-500/10 flex items-center space-x-3"><i class="fa-solid fa-house w-5"></i><span>Home</span></button>
-            <button onclick="switchTab('science')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-microscope w-5"></i><span>Science</span></button>
-            <button onclick="switchTab('innovation')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-lightbulb w-5"></i><span>Innovation</span></button>
-            <button onclick="switchTab('sustainability')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-leaf w-5"></i><span>Sustainability</span></button>
-            <button onclick="switchTab('contact')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-envelope w-5"></i><span>Contact</span></button>
-        </div>
-    </header>
-
-    <!-- Main Dynamic Content Container -->
-    <main class="flex-grow z-10 relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <section id="tab-home" class="tab-content block space-y-12">
-            <!-- Hero Banner -->
-            <div class="relative rounded-3xl glass-panel p-8 md:p-14 overflow-hidden border border-cyan-500/30 shadow-2xl">
-                <div class="absolute -right-20 -top-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div class="relative z-10 max-w-3xl space-y-6">
-                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                        <span>Contest Entry • The Graphic Artist 2026</span>
-                    </div>
-
-                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                        Empowering Tomorrow Through <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">Science & Eco-Innovation</span>
-                    </h1>
-
-                    <p class="text-slate-300 text-lg md:text-xl font-light leading-relaxed">
-                        Discover how cutting-edge research, artificial intelligence, and circular technologies unite to shape a clean, high-tech, and sustainable world.
-                    </p>
-
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <button onclick="switchTab('innovation')" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2">
-                            <span>Explore Innovations</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                        <button onclick="switchTab('sustainability')" class="px-8 py-4 rounded-xl glass-panel text-cyan-400 font-semibold border border-cyan-500/40 hover:bg-cyan-500/10 transition-all flex items-center space-x-2">
-                            <i class="fa-solid fa-calculator"></i>
-                            <span>Eco Calculator</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Animated Impact Metrics Counter -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 text-center">
-                    <p class="text-3xl lg:text-4xl font-extrabold text-cyan-400 font-mono" id="stat-co2">0</p>
-                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">Giga-Tons CO2 Offset Target</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-teal-500/20 text-center">
-                    <p class="text-3xl lg:text-4xl font-extrabold text-teal-300 font-mono" id="stat-energy">0</p>
-                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">% Renewable Grid Target</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-emerald-500/20 text-center">
-                    <p class="text-3xl lg:text-4xl font-extrabold text-emerald-400 font-mono" id="stat-quantum">0</p>
-                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">Quantum Compute Speedup</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 text-center">
-                    <p class="text-3xl lg:text-4xl font-extrabold text-cyan-300 font-mono" id="stat-waste">0</p>
-                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">% Circular Waste Reuse</p>
-                </div>
-            </div>
-
-            <!-- Three Core Pillars Overview -->
-            <div class="grid md:grid-cols-3 gap-6">
-                <div onclick="switchTab('science')" class="glass-panel p-6 rounded-2xl hover:border-cyan-400/60 transition-all cursor-pointer group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-dna"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-cyan-400 transition-colors">Advanced Science</h3>
-                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Quantum physics, genomic editing, and space research paving new paths for discovery.</p>
-                </div>
-                <div onclick="switchTab('innovation')" class="glass-panel p-6 rounded-2xl hover:border-teal-400/60 transition-all cursor-pointer group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-microchip"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-teal-400 transition-colors">Digital Innovation</h3>
-                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Autonomous AI networks, swarm robotics, and zero-latency smart city systems.</p>
-                </div>
-                <div onclick="switchTab('sustainability')" class="glass-panel p-6 rounded-2xl hover:border-emerald-400/60 transition-all cursor-pointer group hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-seedling"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-emerald-400 transition-colors">Green Sustainability</h3>
-                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Circular economy paradigms, clean hydrogen power, and zero-carbon agriculture.</p>
-                </div>
-            </div>
-
-            <!-- Interactive Widget: AI Tech-Fact Pulse Generator -->
-            <div class="glass-panel p-8 rounded-2xl border border-cyan-500/20 text-center space-y-4">
-                <div class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono uppercase">
-                    Interactive Pulse • AI Tech Generator
-                </div>
-                <blockquote id="quote-display" class="text-xl md:text-2xl font-serif italic text-slate-200 max-w-3xl mx-auto">
-                    "Solar energy could supply 100% of global power when combined with AI smart grid storage."
-                </blockquote>
-                <p id="quote-author" class="text-sm font-mono text-cyan-400 font-semibold">— Tech For Tomorrow Insight Hub</p>
-                <button onclick="generateNewFact()" class="mt-4 px-6 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-sm font-medium transition-all inline-flex items-center space-x-2">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                    <span>Generate New Tech Fact</span>
-                </button>
-            </div>
-        </section>
-
-        <section id="tab-science" class="tab-content hidden space-y-8">
-            <div class="border-b border-cyan-500/20 pb-6">
-                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">
-                    Scientific Frontiers & Research
-                </h2>
-                <p class="text-slate-400 mt-2">Breakthrough research laying the foundations for tomorrow's technology.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Research Card 1 -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4 border border-cyan-500/20 hover:border-cyan-400 transition-all">
-                    <div class="w-full h-44 rounded-xl bg-slate-900 border border-cyan-500/20 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
-                        <i class="fa-solid fa-atom text-6xl text-cyan-400 animate-pulse"></i>
-                        <span class="absolute bottom-3 right-3 text-xs font-mono bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded">Quantum Physics</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100">Room-Temp Quantum Computing</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Qubit stabilization techniques allow quantum processors to execute complex climate models in seconds without deep cryogenic cooling.
-                    </p>
-                    <div class="pt-2 flex justify-between items-center text-xs font-mono text-cyan-400">
-                        <span>Readiness: 94%</span>
-                        <span>Lab Validation</span>
-                    </div>
-                </div>
-
-                <!-- Research Card 2 -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4 border border-cyan-500/20 hover:border-teal-400 transition-all">
-                    <div class="w-full h-44 rounded-xl bg-slate-900 border border-teal-500/20 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
-                        <i class="fa-solid fa-dna text-6xl text-teal-400 animate-pulse"></i>
-                        <span class="absolute bottom-3 right-3 text-xs font-mono bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded">Genomics</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100">CRISPR 3.0 Climate Crops</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Gene editing tailored for extreme climate resilience, allowing staple crops to grow in high-salinity and drought-prone regions.
-                    </p>
-                    <div class="pt-2 flex justify-between items-center text-xs font-mono text-teal-400">
-                        <span>Readiness: 89%</span>
-                        <span>Field Testing</span>
-                    </div>
-                </div>
-
-                <!-- Research Card 3 -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4 border border-cyan-500/20 hover:border-emerald-400 transition-all">
-                    <div class="w-full h-44 rounded-xl bg-slate-900 border border-emerald-500/20 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
-                        <i class="fa-solid fa-solar-panel text-6xl text-emerald-400 animate-pulse"></i>
-                        <span class="absolute bottom-3 right-3 text-xs font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Materials Science</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100">Perovskite Photovoltaics</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Flexible tandem solar films providing over 35% efficiency, enabling solar energy harvesting on windows and clothing.
-                    </p>
-                    <div class="pt-2 flex justify-between items-center text-xs font-mono text-emerald-400">
-                        <span>Readiness: 97%</span>
-                        <span>Deployment</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tab-innovation" class="tab-content hidden space-y-8">
-            <div class="border-b border-cyan-500/20 pb-6">
-                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-400">
-                    Emerging Tech & AI Innovations
-                </h2>
-                <p class="text-slate-400 mt-2">Explore active intelligent systems reinventing logistics, energy, and robotics.</p>
-            </div>
-
-            <!-- Interactive Innovation Radar Selector -->
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
-                    <h3 class="text-xl font-bold text-cyan-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-sliders"></i>
-                        <span>Select Innovation Pillar</span>
-                    </h3>
-
-                    <div class="space-y-3">
-                        <button onclick="selectTech('ai')" id="tech-btn-ai" class="w-full p-4 rounded-xl text-left bg-cyan-500/20 border border-cyan-400 flex items-center justify-between transition-all">
-                            <span class="font-semibold text-cyan-300"><i class="fa-solid fa-brain mr-2"></i>Autonomous AI Networks</span>
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
-                        </button>
-                        <button onclick="selectTech('robotics')" id="tech-btn-robotics" class="w-full p-4 rounded-xl text-left glass-panel border border-slate-700 hover:border-cyan-500/50 flex items-center justify-between transition-all">
-                            <span class="font-semibold text-slate-300"><i class="fa-solid fa-robot mr-2"></i>Swarm Robotics & Eco-Drones</span>
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
-                        </button>
-                        <button onclick="selectTech('grids')" id="tech-btn-grids" class="w-full p-4 rounded-xl text-left glass-panel border border-slate-700 hover:border-cyan-500/50 flex items-center justify-between transition-all">
-                            <span class="font-semibold text-slate-300"><i class="fa-solid fa-bolt mr-2"></i>AI Smart Energy Grids</span>
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono uppercase" id="tech-category">
-                            Artificial Intelligence
+            <!-- Main Navigation Bar -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+                
+                <!-- School Logo & Title Branding -->
+                <div class="flex items-center space-x-3.5 group cursor-pointer" onclick="switchTab('home')">
+                    <div class="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-800 to-brand-500 p-0.5 shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform duration-300">
+                        <div class="w-full h-full bg-brand-950 rounded-[10px] flex items-center justify-center">
+                            <i class="fa-solid font-bold fa-leaf text-emeraldGlow text-xl group-hover:rotate-12 transition-transform duration-300"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-100" id="tech-title">Autonomous AI Networks</h3>
-                        <p class="text-slate-300 leading-relaxed text-sm" id="tech-description">
-                            Self-optimizing AI nodes that coordinate complex infrastructure, urban traffic, and industrial energy demands with instant responsiveness.
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight">
+                            SARVODAYA <span class="text-brand-400 font-bold">HSS</span>
+                        </h1>
+                        <p class="text-[11px] sm:text-xs text-emerald-300/80 font-medium tracking-wide">
+                            Usgao-Barazan, Ponda, Goa
                         </p>
                     </div>
+                </div>
 
-                    <div class="mt-6 pt-6 border-t border-slate-800 grid grid-cols-2 gap-4 text-center">
-                        <div class="p-3 bg-slate-900/60 rounded-xl">
-                            <p class="text-xs text-slate-400 font-mono">Efficiency Boost</p>
-                            <p class="text-xl font-bold text-cyan-400" id="tech-stat-1">+450%</p>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 bg-brand-950/60 p-1.5 rounded-2xl border border-brand-500/20">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 text-brand-300 bg-brand-800/60 shadow-inner">
+                        <i class="fa-solid fa-house-laptop mr-1.5 text-xs"></i> Home
+                    </button>
+                    <button onclick="switchTab('science')" id="nav-science" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-emerald-100/70 hover:text-white hover:bg-brand-900/50 transition-all duration-300">
+                        <i class="fa-solid fa-flask-vial mr-1.5 text-xs"></i> Science
+                    </button>
+                    <button onclick="switchTab('innovation')" id="nav-innovation" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-emerald-100/70 hover:text-white hover:bg-brand-900/50 transition-all duration-300">
+                        <i class="fa-solid fa-microchip mr-1.5 text-xs"></i> Innovation
+                    </button>
+                    <button onclick="switchTab('sustainability')" id="nav-sustainability" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-emerald-100/70 hover:text-white hover:bg-brand-900/50 transition-all duration-300">
+                        <i class="fa-solid fa-seedling mr-1.5 text-xs"></i> Sustainability
+                    </button>
+                    <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-emerald-100/70 hover:text-white hover:bg-brand-900/50 transition-all duration-300">
+                        <i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i> Contact
+                    </button>
+                </nav>
+
+                <!-- Action Badge & Mobile Menu Toggle -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="switchTab('sustainability')" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-emerald-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:scale-105 active:scale-95 transition-all duration-300">
+                        <i class="fa-solid fa-calculator"></i> Eco Calculator
+                    </button>
+
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-brand-900/80 border border-brand-500/30 text-brand-300 hover:text-white">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden glass-card border-x-0 border-b border-brand-500/20 px-4 pt-2 pb-4 space-y-2">
+                <button onclick="switchTab('home')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-brand-300 bg-brand-900/40 flex items-center gap-3">
+                    <i class="fa-solid fa-house-laptop"></i> Home
+                </button>
+                <button onclick="switchTab('science')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-emerald-100 hover:bg-brand-900/40 flex items-center gap-3">
+                    <i class="fa-solid fa-flask-vial"></i> Science
+                </button>
+                <button onclick="switchTab('innovation')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-emerald-100 hover:bg-brand-900/40 flex items-center gap-3">
+                    <i class="fa-solid fa-microchip"></i> Innovation
+                </button>
+                <button onclick="switchTab('sustainability')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-emerald-100 hover:bg-brand-900/40 flex items-center gap-3">
+                    <i class="fa-solid fa-seedling"></i> Sustainability
+                </button>
+                <button onclick="switchTab('contact')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-emerald-100 hover:bg-brand-900/40 flex items-center gap-3">
+                    <i class="fa-solid fa-paper-plane"></i> Contact
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT SECTIONS -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- SECTION 1: HOME -->
+            <section id="section-home" class="tab-content space-y-12 animate-fade-in">
+                
+                <!-- Hero Section with Floating Elements & School Title -->
+                <div class="relative glass-card rounded-3xl p-6 sm:p-10 lg:p-14 overflow-hidden border border-brand-500/30">
+                    <div class="absolute -right-12 -bottom-12 w-96 h-96 bg-emeraldGlow/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="grid lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 space-y-6">
+                            
+                            <!-- School Badge & Tagline -->
+                            <div class="inline-flex items-center gap-2.5 bg-brand-950/80 border border-brand-400/40 px-3.5 py-1.5 rounded-full shadow-inner">
+                                <i class="fa-solid fa-school text-emeraldGlow text-sm animate-bounce-soft"></i>
+                                <span class="text-xs sm:text-sm font-semibold text-brand-200 tracking-wide">
+                                    Sarvodaya Higher Secondary School, Usgao-Barazan, Goa
+                                </span>
+                            </div>
+
+                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none">
+                                Tech for <br>
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emeraldGlow via-brand-400 to-teal-300 text-glow-lime">
+                                    Tomorrow
+                                </span>
+                            </h1>
+
+                            <p class="text-emerald-100/80 text-base sm:text-lg leading-relaxed max-w-2xl font-light">
+                                Welcome to our official Graphic Artist Contest showcase. Empowering youth through <span class="text-white font-semibold">Science</span>, futuristic <span class="text-white font-semibold">Innovation</span>, and eco-centric <span class="text-white font-semibold">Sustainability</span> for a greener Goan ecosystem.
+                            </p>
+
+                            <!-- CTAs & Action Buttons -->
+                            <div class="flex flex-wrap gap-4 pt-2">
+                                <button onclick="switchTab('innovation')" class="bg-gradient-to-r from-emeraldGlow to-brand-500 text-brand-950 font-bold px-7 py-3.5 rounded-2xl shadow-lg shadow-emeraldGlow/20 hover:shadow-emeraldGlow/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2">
+                                    Explore Innovations <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                                <button onclick="switchTab('science')" class="glass-card hover:bg-brand-900/60 text-emerald-200 font-semibold px-6 py-3.5 rounded-2xl border border-brand-500/30 hover:border-brand-400 transition-all duration-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-atom text-brand-400"></i> Quantum Labs
+                                </button>
+                            </div>
                         </div>
-                        <div class="p-3 bg-slate-900/60 rounded-xl">
-                            <p class="text-xs text-slate-400 font-mono">Global Adoption</p>
-                            <p class="text-xl font-bold text-emerald-400" id="tech-stat-2">92%</p>
+
+                        <!-- Hero Interactive Animated Artwork -->
+                        <div class="lg:col-span-5 flex justify-center relative">
+                            <div class="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
+                                <!-- Rotating Outer Orbit Ring -->
+                                <div class="absolute inset-0 rounded-full border-2 border-dashed border-emerald-500/40 animate-spin-slow"></div>
+                                <div class="absolute inset-4 rounded-full border border-brand-400/20"></div>
+                                
+                                <!-- Central Floating Eco Orb -->
+                                <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-brand-600 via-emerald-800 to-brand-950 p-1 shadow-2xl shadow-emeraldGlow/30 animate-float-slow flex items-center justify-center">
+                                    <div class="w-full h-full bg-brand-950/90 rounded-full flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">
+                                        <i class="fa-solid fa-earth-asia text-5xl sm:text-6xl text-emeraldGlow mb-2 animate-pulse"></i>
+                                        <span class="text-xs font-bold uppercase tracking-widest text-emerald-300">Goa Eco-Tech</span>
+                                        <span class="text-[10px] text-emerald-100/60">Usgao-Barazan Vision</span>
+                                    </div>
+                                </div>
+
+                                <!-- Floating Satellite Badges -->
+                                <div class="absolute top-2 left-2 glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-emerald-200 flex items-center gap-2 animate-float-medium">
+                                    <i class="fa-solid fa-solar-panel text-amber-400"></i> Clean Energy
+                                </div>
+                                <div class="absolute bottom-4 right-2 glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-emerald-200 flex items-center gap-2 animate-float-fast" style="animation-delay: 1s;">
+                                    <i class="fa-solid fa-brain text-emeraldGlow"></i> Smart AI
+                                </div>
+                                <div class="absolute top-1/2 -right-4 glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-emerald-200 flex items-center gap-2 animate-float-slow" style="animation-delay: 2s;">
+                                    <i class="fa-solid fa-recycle text-teal-300"></i> Zero Carbon
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="tab-sustainability" class="tab-content hidden space-y-8">
-            <div class="border-b border-cyan-500/20 pb-6">
-                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
-                    Sustainability & Circular Economy
-                </h2>
-                <p class="text-slate-400 mt-2">Zero-waste technological designs tailored to restore planet health.</p>
-            </div>
-
-            <!-- Interactive Eco Calculator Widget -->
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="glass-panel p-6 md:p-8 rounded-2xl border border-emerald-500/30 space-y-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-calculator"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-100">Green Energy Impact Calculator</h3>
+                <!-- 3 Core Pillars Section -->
+                <div>
+                    <div class="text-center max-w-2xl mx-auto mb-8">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Core Pillars of Tomorrow</h2>
+                        <p class="text-emerald-100/70 text-sm mt-1">Integrating scientific discovery with eco-friendly innovation at Sarvodaya HSS.</p>
                     </div>
 
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <label class="text-slate-300">Monthly Household Electricity (kWh)</label>
-                                <span class="text-emerald-400 font-mono font-bold" id="val-kwh">400 kWh</span>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Pillar 1 -->
+                        <div onclick="switchTab('science')" class="glass-card glass-card-interactive p-6 rounded-2xl cursor-pointer group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-900/80 border border-brand-500/40 flex items-center justify-center text-emeraldGlow text-2xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-flask-vial"></i>
                             </div>
-                            <input type="range" id="input-kwh" min="100" max="1500" value="400" step="10" class="w-full accent-emerald-400 cursor-pointer" oninput="updateCalculator()">
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emeraldGlow transition-colors">1. Scientific Inquiry</h3>
+                            <p class="text-emerald-100/70 text-sm leading-relaxed mb-4">
+                                Harnessing biology, green chemistry, and quantum research to solve localized environmental challenges in Goa.
+                            </p>
+                            <span class="text-xs font-bold text-brand-400 group-hover:translate-x-1 inline-flex items-center gap-1 transition-transform">
+                                Explore Science Lab <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </span>
                         </div>
 
-                        <div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <label class="text-slate-300">Solar Energy Adoption (%)</label>
-                                <span class="text-emerald-400 font-mono font-bold" id="val-solar">60%</span>
+                        <!-- Pillar 2 -->
+                        <div onclick="switchTab('innovation')" class="glass-card glass-card-interactive p-6 rounded-2xl cursor-pointer group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-900/80 border border-brand-500/40 flex items-center justify-center text-emeraldGlow text-2xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-microchip"></i>
                             </div>
-                            <input type="range" id="input-solar" min="0" max="100" value="60" step="5" class="w-full accent-emerald-400 cursor-pointer" oninput="updateCalculator()">
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emeraldGlow transition-colors">2. Smart Innovation</h3>
+                            <p class="text-emerald-100/70 text-sm leading-relaxed mb-4">
+                                IoT environmental sensors, robotics for conservation, and AI models driving sustainable community agriculture.
+                            </p>
+                            <span class="text-xs font-bold text-brand-400 group-hover:translate-x-1 inline-flex items-center gap-1 transition-transform">
+                                View Tech Radar <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </span>
                         </div>
-                    </div>
-                </div>
 
-                <div class="glass-panel p-6 md:p-8 rounded-2xl border border-emerald-500/30 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-mono uppercase text-emerald-400 tracking-wider">Estimated Annual Impact</span>
-                        <h4 class="text-2xl font-bold text-slate-100 mt-1">Your Clean Energy Potential</h4>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 my-6">
-                        <div class="p-4 bg-emerald-950/40 rounded-xl border border-emerald-500/20 text-center">
-                            <i class="fa-solid fa-tree text-emerald-400 text-2xl mb-1"></i>
-                            <p class="text-2xl font-black text-emerald-400" id="res-trees">46</p>
-                            <p class="text-xs text-slate-400">Trees Planted Equivalent</p>
-                        </div>
-                        <div class="p-4 bg-cyan-950/40 rounded-xl border border-cyan-500/20 text-center">
-                            <i class="fa-solid fa-cloud text-cyan-400 text-2xl mb-1"></i>
-                            <p class="text-2xl font-black text-cyan-400" id="res-co2">2.0 Tons</p>
-                            <p class="text-xs text-slate-400">CO2 Emissions Avoided</p>
-                        </div>
-                    </div>
-
-                    <p class="text-xs text-slate-400 italic text-center">
-                        Metrics modeled on standard clean energy grid conversion factors.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="tab-contact" class="tab-content hidden space-y-8">
-            <div class="border-b border-cyan-500/20 pb-6">
-                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                    Connect With Our Team
-                </h2>
-                <p class="text-slate-400 mt-2">Questions or feedback for The Graphic Artist contest entry? Send us a message.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 space-y-6">
-                    <h3 class="text-xl font-bold text-cyan-400">Contest Overview</h3>
-                    <div class="space-y-4 text-sm text-slate-300">
-                        <div class="flex items-start space-x-3">
-                            <i class="fa-solid fa-trophy text-cyan-400 mt-1"></i>
-                            <div>
-                                <p class="font-semibold text-slate-100">Contest Name</p>
-                                <p class="text-slate-400">The Graphic Artist Website Designing Contest</p>
+                        <!-- Pillar 3 -->
+                        <div onclick="switchTab('sustainability')" class="glass-card glass-card-interactive p-6 rounded-2xl cursor-pointer group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-900/80 border border-brand-500/40 flex items-center justify-center text-emeraldGlow text-2xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-seedling"></i>
                             </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fa-solid fa-bullseye text-cyan-400 mt-1"></i>
-                            <div>
-                                <p class="font-semibold text-slate-100">Theme Topic</p>
-                                <p class="text-slate-400">Tech for Tomorrow - Science, Innovation & Sustainability</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fa-solid fa-code text-cyan-400 mt-1"></i>
-                            <div>
-                                <p class="font-semibold text-slate-100">Build Tech</p>
-                                <p class="text-slate-400">HTML5, Tailwind CSS & JavaScript (Single File)</p>
-                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emeraldGlow transition-colors">3. Sustainability</h3>
+                            <p class="text-emerald-100/70 text-sm leading-relaxed mb-4">
+                                Building circular economies, renewable micro-grids, and eco-initiatives directly from Usgao-Barazan.
+                            </p>
+                            <span class="text-xs font-bold text-brand-400 group-hover:translate-x-1 inline-flex items-center gap-1 transition-transform">
+                                Open Carbon Calculator <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 glass-panel p-6 md:p-8 rounded-2xl border border-cyan-500/30">
-                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Participant Name</label>
-                                <input type="text" id="form-name" required placeholder="Enter full name" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors">
+                <!-- Interactive Tech-Fact Generator Feature -->
+                <div class="glass-card rounded-2xl p-6 sm:p-8 border border-brand-500/30">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div class="space-y-2 text-center sm:text-left">
+                            <div class="inline-flex items-center gap-2 text-xs font-mono text-emeraldGlow">
+                                <i class="fa-solid fa-lightbulb"></i> DAILY FUTURE TECH INSIGHT
                             </div>
-                            <div>
-                                <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Email Address</label>
-                                <input type="email" id="form-email" required placeholder="name@domain.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors">
-                            </div>
+                            <h3 class="text-lg font-bold text-white">Interactive Eco-Science Fact Generator</h3>
+                            <p id="fact-display" class="text-sm text-emerald-100/80 italic max-w-2xl bg-brand-950/60 p-4 rounded-xl border border-brand-500/20">
+                                "Solar micro-grids embedded with AI balance load distribution with 40% higher efficiency than traditional electric grids."
+                            </p>
                         </div>
-
-                        <div>
-                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Subject</label>
-                            <select id="form-subject" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors">
-                                <option value="general">General Innovation Query</option>
-                                <option value="science">Scientific Research Feedback</option>
-                                <option value="contest">Contest Evaluation</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Message</label>
-                            <textarea id="form-message" rows="4" required placeholder="Type your message here..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <span>Transmit Message</span>
+                        <button onclick="generateRandomFact()" class="shrink-0 bg-brand-800 hover:bg-brand-700 text-emerald-200 font-semibold px-5 py-3 rounded-xl border border-brand-500/40 transition-all duration-300 flex items-center gap-2 text-sm shadow-md">
+                            <i class="fa-solid fa-arrows-rotate text-emeraldGlow"></i> New Insight
                         </button>
-                    </form>
-
-                    <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm text-center font-medium">
-                        <i class="fa-solid fa-circle-check mr-2"></i>Message received! Thank you for reaching out.
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </main>
+            <!-- SECTION 2: SCIENCE -->
+            <section id="section-science" class="tab-content hidden space-y-10 animate-fade-in">
+                <!-- Header Banner -->
+                <div class="glass-card rounded-3xl p-8 border border-brand-500/30 relative overflow-hidden">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-bold text-emeraldGlow uppercase tracking-wider font-mono">Module 01 &bull; Scientific Frontiers</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-1 mb-3">Bio-Tech & Quantum Sciences</h2>
+                        <p class="text-emerald-100/80 text-sm leading-relaxed">
+                            Discover how students at Sarvodaya HSS research biological solutions, clean hydrogen fuel chemistry, and climate research modeling.
+                        </p>
+                    </div>
+                </div>
 
-    <footer class="glass-panel border-t border-cyan-500/20 mt-16 z-10 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 space-y-4 md:space-y-0">
-            <div class="flex items-center space-x-2">
-                <span class="font-mono text-cyan-400 font-bold">TECH4TOMORROW</span>
-                <span>© 2026 The Graphic Artist Website Designing Contest</span>
-            </div>
-            <div class="flex space-x-6">
-                <button onclick="switchTab('home')" class="hover:text-cyan-400 transition-colors">Home</button>
-                <button onclick="switchTab('science')" class="hover:text-cyan-400 transition-colors">Science</button>
-                <button onclick="switchTab('innovation')" class="hover:text-cyan-400 transition-colors">Innovation</button>
-                <button onclick="switchTab('sustainability')" class="hover:text-cyan-400 transition-colors">Sustainability</button>
-                <button onclick="switchTab('contact')" class="hover:text-cyan-400 transition-colors">Contact</button>
-            </div>
-        </div>
-    </footer>
+                <!-- Interactive Quantum & Bio Tech Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="glass-card glass-card-interactive p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-950 border border-emerald-500/30 flex items-center justify-center text-emeraldGlow">
+                                    <i class="fa-solid fa-dna text-lg"></i>
+                                </div>
+                                <span class="text-[10px] bg-brand-900 text-brand-300 px-2 py-1 rounded font-mono">BIO-GENETICS</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Algae Bio-Fuel Cell Research</h3>
+                            <p class="text-xs text-emerald-100/70 leading-relaxed mb-4">
+                                Utilizing local Goan freshwater microalgae strains to synthesize clean biomass electricity with zero net carbon release.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-brand-500/20 flex justify-between items-center text-xs text-emerald-300/80">
+                            <span>Lab Efficiency Score</span>
+                            <span class="font-bold text-emeraldGlow">94.2%</span>
+                        </div>
+                    </div>
 
+                    <!-- Card 2 -->
+                    <div class="glass-card glass-card-interactive p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-950 border border-emerald-500/30 flex items-center justify-center text-emeraldGlow">
+                                    <i class="fa-solid fa-droplet text-lg"></i>
+                                </div>
+                                <span class="text-[10px] bg-brand-900 text-brand-300 px-2 py-1 rounded font-mono">HYDRO-TECH</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Solar Water Electrolysis</h3>
+                            <p class="text-xs text-emerald-100/70 leading-relaxed mb-4">
+                                Green hydrogen harvesting using low-cost catalyst electrodes engineered for tropical climate durability.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-brand-500/20 flex justify-between items-center text-xs text-emerald-300/80">
+                            <span>Purity Rating</span>
+                            <span class="font-bold text-emeraldGlow">99.8% H₂</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card glass-card-interactive p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-950 border border-emerald-500/30 flex items-center justify-center text-emeraldGlow">
+                                    <i class="fa-solid fa-microscope text-lg"></i>
+                                </div>
+                                <span class="text-[10px] bg-brand-900 text-brand-300 px-2 py-1 rounded font-mono">NANOTECH</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Graphene Water Filtration</h3>
+                            <p class="text-xs text-emerald-100/70 leading-relaxed mb-4">
+                                Nanoporous membrane filters designed to purify river water around Usgao-Barazan with minimal energy input.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-brand-500/20 flex justify-between items-center text-xs text-emerald-300/80">
+                            <span>Flow Rate</span>
+                            <span class="font-bold text-emeraldGlow">18.5 L/hr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Science Research Stats Banner -->
+                <div class="glass-card rounded-2xl p-6 border border-brand-500/30 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl font-extrabold text-emeraldGlow">28+</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">Student Research Papers</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-emeraldGlow">100%</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">Renewable Powered Labs</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-emeraldGlow">15</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">Science Fair Awards</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-emeraldGlow">5.2 T</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">CO₂ Offset Annually</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: INNOVATION -->
+            <section id="section-innovation" class="tab-content hidden space-y-10 animate-fade-in">
+                <!-- Header Banner -->
+                <div class="glass-card rounded-3xl p-8 border border-brand-500/30 relative overflow-hidden">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-bold text-emeraldGlow uppercase tracking-wider font-mono">Module 02 &bull; Future Technologies</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-1 mb-3">AI & Smart Eco-Robotics</h2>
+                        <p class="text-emerald-100/80 text-sm leading-relaxed">
+                            Pioneering smart technologies, agricultural robotics, and intelligent energy management designed by Sarvodaya students.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Tech Radar / Feature Showcase -->
+                <div class="grid lg:grid-cols-12 gap-8">
+                    <!-- Tech Showcase Highlight -->
+                    <div class="lg:col-span-7 glass-card rounded-2xl p-6 sm:p-8 border border-brand-500/30 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="bg-emeraldGlow/20 text-emeraldGlow p-3 rounded-xl border border-emeraldGlow/30">
+                                    <i class="fa-solid fa-robot text-2xl"></i>
+                                </span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Project 'AgriBot Goa'</h3>
+                                    <p class="text-xs text-brand-300">Autonomous Soil Health & Crop Monitoring Drone</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-emerald-100/80 leading-relaxed mb-6">
+                                Powered by solar rechargeable lithium cells and on-board AI computer vision, AgriBot identifies plant nutrient deficiencies across rural Goan farmland and sprays targeted organic treatments automatically.
+                            </p>
+                            
+                            <!-- Key Metrics -->
+                            <div class="grid grid-cols-3 gap-3 mb-6 bg-brand-950/60 p-4 rounded-xl border border-brand-500/20 text-center">
+                                <div>
+                                    <span class="text-[10px] text-emerald-100/60 block">Water Saved</span>
+                                    <span class="text-base font-bold text-emeraldGlow">65%</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-emerald-100/60 block">AI Precision</span>
+                                    <span class="text-base font-bold text-emeraldGlow">98.4%</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-emerald-100/60 block">Battery Life</span>
+                                    <span class="text-base font-bold text-emeraldGlow">6.5 Hrs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-brand-500/20">
+                            <span class="text-xs text-emerald-200/70">Status: <strong class="text-emeraldGlow">Prototype Tested</strong></span>
+                            <button onclick="alert('AgriBot Live Demo Data Syncing... System Operational!')" class="bg-brand-800 hover:bg-brand-700 text-emerald-200 text-xs font-semibold px-4 py-2 rounded-xl transition-all">
+                                <i class="fa-solid fa-circle-play text-emeraldGlow mr-1"></i> Simulated Run
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Innovation List -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="glass-card p-5 rounded-2xl border border-brand-500/20">
+                            <div class="flex gap-4">
+                                <div class="text-emeraldGlow text-2xl pt-1">
+                                    <i class="fa-solid fa-wifi"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Smart River Water Quality Sensors</h4>
+                                    <p class="text-xs text-emerald-100/70 mt-1">IoT sensor nodes deployed along local Barazan streams transmitting real-time pH and turbidity analytics.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border border-brand-500/20">
+                            <div class="flex gap-4">
+                                <div class="text-emeraldGlow text-2xl pt-1">
+                                    <i class="fa-solid fa-solar-panel"></i>
+                                </div>
+                                <div opacity-90>
+                                    <h4 class="font-bold text-white text-sm">Piezoelectric Kinetic Floorings</h4>
+                                    <p class="text-xs text-emerald-100/70 mt-1">Harnessing student footsteps in school corridors to power hallway LED lighting arrays.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border border-brand-500/20">
+                            <div class="flex gap-4">
+                                <div class="text-emeraldGlow text-2xl pt-1">
+                                    <i class="fa-solid fa-leaf"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">AI Waste Sorting Bin</h4>
+                                    <p class="text-xs text-emerald-100/70 mt-1">Machine vision camera automatically classifies plastic, paper, and organic waste in under 0.8 seconds.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: SUSTAINABILITY & ECO CALCULATOR -->
+            <section id="section-sustainability" class="tab-content hidden space-y-10 animate-fade-in">
+                <!-- Header Banner -->
+                <div class="glass-card rounded-3xl p-8 border border-brand-500/30 relative overflow-hidden">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-bold text-emeraldGlow uppercase tracking-wider font-mono">Module 03 &bull; Ecological Action</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-1 mb-3">Green Energy & Carbon Calculator</h2>
+                        <p class="text-emerald-100/80 text-sm leading-relaxed">
+                            Calculate your household carbon savings and explore Sarvodaya HSS Usgao's initiatives for circular economy and reforestation.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Carbon Footprint Calculator Widget -->
+                <div class="grid lg:grid-cols-12 gap-8">
+                    <!-- Calculator Form -->
+                    <div class="lg:col-span-7 glass-card p-6 sm:p-8 rounded-2xl border border-brand-500/30 space-y-6">
+                        <div class="flex items-center justify-between border-b border-brand-500/20 pb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-calculator text-emeraldGlow"></i> Interactive Eco-Savings Calculator
+                            </h3>
+                            <span class="text-xs text-brand-300 font-mono">Usgao-Barazan Standard</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Input 1: Monthly Electricity -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-2">
+                                    <label class="text-emerald-100">Monthly Electricity Consumption (kWh):</label>
+                                    <span id="kwh-val" class="text-emeraldGlow font-mono">250 kWh</span>
+                                </div>
+                                <input type="range" id="kwh-input" min="50" max="1000" value="250" oninput="calculateEcoImpact()" class="w-full accent-emeraldGlow cursor-pointer bg-brand-950 rounded-lg h-2">
+                            </div>
+
+                            <!-- Input 2: Solar Energy Percentage -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-2">
+                                    <label class="text-emerald-100">Solar / Renewable Energy Share (%):</label>
+                                    <span id="solar-val" class="text-emeraldGlow font-mono">40%</span>
+                                </div>
+                                <input type="range" id="solar-input" min="0" max="100" value="40" oninput="calculateEcoImpact()" class="w-full accent-emeraldGlow cursor-pointer bg-brand-950 rounded-lg h-2">
+                            </div>
+
+                            <!-- Input 3: Weekly Tree Planting / Green Activity -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-2">
+                                    <label class="text-emerald-100">Trees Planted / Maintained Annually:</label>
+                                    <span id="tree-val" class="text-emeraldGlow font-mono">12 Trees</span>
+                                </div>
+                                <input type="range" id="tree-input" min="0" max="100" value="12" oninput="calculateEcoImpact()" class="w-full accent-emeraldGlow cursor-pointer bg-brand-950 rounded-lg h-2">
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-brand-500/20">
+                            <p class="text-xs text-emerald-100/60 leading-relaxed">
+                                *Calculations use Goa State clean grid emissions factors combined with local tropical flora carbon sequestration metrics.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Results Display Card -->
+                    <div class="lg:col-span-5 glass-card p-6 sm:p-8 rounded-2xl border border-brand-500/30 flex flex-col justify-between bg-gradient-to-br from-brand-950 to-brand-900">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-widest text-emerald-300 mb-6">Your Annual Impact Report</h4>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <span class="text-xs text-emerald-100/70 block mb-1">Estimated Annual CO₂ Offset</span>
+                                    <div id="co2-result" class="text-4xl font-extrabold text-emeraldGlow text-glow-lime">
+                                        1,420 kg
+                                    </div>
+                                    <span class="text-[11px] text-brand-300">Equivalent to removing 0.3 cars from the road</span>
+                                </div>
+
+                                <div class="pt-4 border-t border-brand-500/20">
+                                    <span class="text-xs text-emerald-100/70 block mb-1">Estimated Yearly Energy Savings</span>
+                                    <div id="savings-result" class="text-2xl font-bold text-white">
+                                        ₹ 14,400 / yr
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="alert('Eco Impact Certificate Generated! Thank you for supporting Sarvodaya HSS Sustainability Drive.')" class="mt-8 w-full bg-gradient-to-r from-emeraldGlow to-brand-500 text-brand-950 font-bold py-3 rounded-xl hover:scale-105 active:scale-95 transition-all text-sm shadow-lg">
+                            <i class="fa-solid fa-award mr-1.5"></i> Claim Eco-Pledge Badge
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Green School Initiatives Cards -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-2xl border border-brand-500/20">
+                        <i class="fa-solid fa-tree text-3xl text-emeraldGlow mb-3"></i>
+                        <h4 class="text-base font-bold text-white mb-1">Usgao Reforestation Drive</h4>
+                        <p class="text-xs text-emerald-100/70 leading-relaxed">Over 1,200 native Goan fruit and timber trees planted by students along local eco-corridors.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-brand-500/20">
+                        <i class="fa-solid fa-bottle-water text-3xl text-emeraldGlow mb-3"></i>
+                        <h4 class="text-base font-bold text-white mb-1">Single-Use Plastic Ban</h4>
+                        <p class="text-xs text-emerald-100/70 leading-relaxed">100% zero-single-use-plastic campus with student-managed bamboo water dispensers.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-brand-500/20">
+                        <i class="fa-solid fa-sun text-3xl text-emeraldGlow mb-3"></i>
+                        <h4 class="text-base font-bold text-white mb-1">Rooftop Solar Array</h4>
+                        <p class="text-xs text-emerald-100/70 leading-relaxed">25 kW solar array providing clean energy for all school computer labs and science apparatus.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: CONTACT & CONTEST FEEDBACK -->
+            <section id="section-contact" class="tab-content hidden space-y-10 animate-fade-in">
+                <div class="grid lg:grid-cols-12 gap-8">
+                    
+                    <!-- School Contact Info -->
+                    <div class="lg:col-span-5 glass-card p-8 rounded-3xl border border-brand-500/30 space-y-6">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-emeraldGlow uppercase">Contest Submission Info</span>
+                            <h2 class="text-2xl font-extrabold text-white mt-1">Sarvodaya Higher Secondary School</h2>
+                            <p class="text-xs text-emerald-200/80 mt-1">Usgao-Barazan, Ponda, Goa - 403406</p>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-center gap-3 text-sm text-emerald-100/80">
+                                <span class="w-9 h-9 rounded-xl bg-brand-900 border border-brand-500/30 flex items-center justify-center text-emeraldGlow shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </span>
+                                <div>
+                                    <span class="block text-[10px] text-emerald-100/60 uppercase">Location</span>
+                                    <span>Usgao-Barazan, Ponda Taluka, Goa State</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 text-sm text-emerald-100/80">
+                                <span class="w-9 h-9 rounded-xl bg-brand-900 border border-brand-500/30 flex items-center justify-center text-emeraldGlow shrink-0">
+                                    <i class="fa-solid fa-trophy"></i>
+                                </span>
+                                <div>
+                                    <span class="block text-[10px] text-emerald-100/60 uppercase">Contest Category</span>
+                                    <span>THE GRAPHIC ARTIST Web Designing Competition</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 text-sm text-emerald-100/80">
+                                <span class="w-9 h-9 rounded-xl bg-brand-900 border border-brand-500/30 flex items-center justify-center text-emeraldGlow shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </span>
+                                <div>
+                                    <span class="block text-[10px] text-emerald-100/60 uppercase">Official Email</span>
+                                    <span>sarvodayahss.usgao@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-brand-950/80 border border-brand-500/20 text-xs text-emerald-200/70 space-y-2">
+                            <span class="font-bold text-white block">Designed with:</span>
+                            <div class="flex flex-wrap gap-2 text-[10px]">
+                                <span class="bg-brand-900 px-2 py-0.5 rounded border border-brand-500/30">HTML5</span>
+                                <span class="bg-brand-900 px-2 py-0.5 rounded border border-brand-500/30">Tailwind CSS</span>
+                                <span class="bg-brand-900 px-2 py-0.5 rounded border border-brand-500/30">Canvas Physics</span>
+                                <span class="bg-brand-900 px-2 py-0.5 rounded border border-brand-500/30">Glassmorphism</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Form -->
+                    <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-brand-500/30">
+                        <h3 class="text-xl font-bold text-white mb-1">Contest Feedback & Inquiry Form</h3>
+                        <p class="text-xs text-emerald-100/70 mb-6">Send a message directly to the Sarvodaya HSS Student Web Design Team.</p>
+
+                        <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-emerald-100 mb-1">Your Name</label>
+                                    <input type="text" required placeholder="e.g. Rahul Naik" class="w-full bg-brand-950/80 border border-brand-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emeraldGlow">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-emerald-100 mb-1">Your Email</label>
+                                    <input type="email" required placeholder="e.g. rahul@example.com" class="w-full bg-brand-950/80 border border-brand-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emeraldGlow">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-100 mb-1">Subject / Category</label>
+                                <select class="w-full bg-brand-950/80 border border-brand-500/30 rounded-xl px-4 py-2.5 text-sm text-emerald-100 focus:outline-none focus:border-emeraldGlow">
+                                    <option>Graphic Artist Competition Feedback</option>
+                                    <option>School Innovation Collaboration</option>
+                                    <option>Green Science Research Inquiry</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-100 mb-1">Message</label>
+                                <textarea rows="4" required placeholder="Write your comments or contest evaluation feedback here..." class="w-full bg-brand-950/80 border border-brand-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emeraldGlow"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-gradient-to-r from-emeraldGlow to-brand-500 text-brand-950 font-bold py-3.5 rounded-xl hover:scale-[1.02] active:scale-98 transition-all text-sm shadow-lg shadow-emeraldGlow/20">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Submit Response
+                            </button>
+                        </form>
+
+                        <!-- Success Popup Alert -->
+                        <div id="form-success-alert" class="hidden mt-4 p-4 rounded-xl bg-emerald-950 border border-emeraldGlow text-emerald-200 text-xs flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-emeraldGlow text-base"></i>
+                                Thank you! Your message has been sent to Sarvodaya HSS Team.
+                            </span>
+                            <button onclick="document.getElementById('form-success-alert').classList.add('hidden')" class="text-emerald-400 hover:text-white">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="glass-nav border-t border-brand-500/20 py-8 px-4 mt-12">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+                <div>
+                    <div class="text-sm font-bold text-white flex items-center justify-center md:justify-start gap-2">
+                        <i class="fa-solid fa-leaf text-emeraldGlow"></i> Sarvodaya Higher Secondary School
+                    </div>
+                    <p class="text-xs text-emerald-100/60 mt-1">Usgao-Barazan, Goa &bull; Tech for Tomorrow Website Competition</p>
+                </div>
+
+                <div class="text-xs text-emerald-100/60 space-y-1">
+                    <div>Designed for <strong>THE GRAPHIC ARTIST Contest</strong></div>
+                    <div class="font-mono text-[10px] text-brand-300">Theme: Science, Innovation & Sustainability</div>
+                </div>
+
+                <div class="flex space-x-4 text-emerald-300">
+                    <a href="#" class="hover:text-emeraldGlow transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                    <a href="#" class="hover:text-emeraldGlow transition-colors"><i class="fa-solid fa-globe text-lg"></i></a>
+                    <a href="#" class="hover:text-emeraldGlow transition-colors"><i class="fa-solid fa-graduation-cap text-lg"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & ANIMATIONS -->
     <script>
-        /* Dynamic Tab Navigation Logic */
+        /* -------------------------------------------------------------
+         * 1. TAB SWITCHING LOGIC
+         * ------------------------------------------------------------- */
         function switchTab(tabId) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.add('hidden'));
+            // Hide all tab sections
+            const sections = document.querySelectorAll('.tab-content');
+            sections.forEach(sec => sec.classList.add('hidden'));
 
-            const target = document.getElementById('tab-' + tabId);
-            if (target) {
-                target.classList.remove('hidden');
+            // Show selected section
+            const activeSection = document.getElementById('section-' + tabId);
+            if(activeSection) {
+                activeSection.classList.remove('hidden');
             }
 
+            // Reset navigation button styles
             const navButtons = document.querySelectorAll('.nav-btn');
             navButtons.forEach(btn => {
-                btn.className = "nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50";
+                btn.classList.remove('text-brand-300', 'bg-brand-800/60', 'shadow-inner');
+                btn.classList.add('text-emerald-100/70');
             });
 
+            // Highlight active button
             const activeBtn = document.getElementById('nav-' + tabId);
-            if (activeBtn) {
-                activeBtn.className = "nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-cyan-400 bg-cyan-500/10 border border-cyan-500/30";
+            if(activeBtn) {
+                activeBtn.classList.add('text-brand-300', 'bg-brand-800/60', 'shadow-inner');
+                activeBtn.classList.remove('text-emerald-100/70');
             }
 
-            document.getElementById('mobile-menu').classList.add('hidden');
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+
+            // Scroll smoothly to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* Mobile Menu Toggle */
         function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
         }
 
-        /* Theme Switcher */
-        function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                icon.className = 'fa-solid fa-sun text-lg';
-            } else {
-                html.classList.remove('light');
-                html.classList.add('dark');
-                icon.className = 'fa-solid fa-moon text-lg';
-            }
-        }
-
-        /* Animated Statistics Counter */
-        function animateCounters() {
-            const targets = {
-                'stat-co2': 50,
-                'stat-energy': 100,
-                'stat-quantum': 1000,
-                'stat-waste': 98
-            };
-
-            for (const [id, target] of Object.entries(targets)) {
-                let current = 0;
-                const increment = Math.ceil(target / 40);
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    const elem = document.getElementById(id);
-                    if (elem) elem.innerText = current + (id === 'stat-quantum' ? 'x' : '');
-                }, 30);
-            }
-        }
-
-        /* Fact Generator Data */
+        /* -------------------------------------------------------------
+         * 2. INTERACTIVE TECH FACT GENERATOR
+         * ------------------------------------------------------------- */
         const techFacts = [
-            "Solar power capacity can fulfill global electricity needs when paired with distributed grid storage.",
-            "Quantum processors can evaluate chemical molecular reactions in seconds rather than centuries.",
-            "Vertical indoor hydro-farms consume up to 95% less water than traditional open farming.",
-            "AI-optimizing energy grids continuously minimize carbon footprints in smart cities."
+            "Solar micro-grids embedded with AI balance load distribution with 40% higher efficiency than traditional electric grids.",
+            "Goa's western ghats biodiversity inspires bio-mimetic nanotech surfaces that reject dirt and harvest pure fog dew.",
+            "Piezoelectric smart tiles generate up to 5 Watts per footstep, powering school security and lighting systems.",
+            "Microalgae bio-reactors absorb CO₂ up to 10 times faster than terrestrial trees per square meter.",
+            "Circular tech recycling in Goa can reclaim over 85% of rare earth metals from discarded smartphone circuit boards."
         ];
 
-        function generateNewFact() {
+        function generateRandomFact() {
+            const display = document.getElementById('fact-display');
             const randomIndex = Math.floor(Math.random() * techFacts.length);
-            document.getElementById('quote-display').innerText = `"${techFacts[randomIndex]}"`;
-        }
-
-        /* Interactive Tech Pillar Radar */
-        const techData = {
-            ai: {
-                category: "Artificial Intelligence",
-                title: "Autonomous AI Networks",
-                desc: "Self-optimizing AI nodes that coordinate complex infrastructure, urban traffic, and industrial energy demands with instant responsiveness.",
-                stat1: "+450%",
-                stat2: "92%"
-            },
-            robotics: {
-                category: "Automation & Robotics",
-                title: "Swarm Robotics & Eco-Drones",
-                desc: "Autonomous drone arrays deployed for precision reforestation, forest fire detection, and ocean trash collection.",
-                stat1: "+320%",
-                stat2: "88%"
-            },
-            grids: {
-                category: "Clean Energy Grids",
-                title: "AI Smart Energy Grids",
-                desc: "Predictive energy networks that seamlessly adjust solar and wind distribution across city hubs.",
-                stat1: "+500%",
-                stat2: "96%"
-            }
-        };
-
-        function selectTech(key) {
-            const data = techData[key];
-            if (!data) return;
-
-            document.getElementById('tech-category').innerText = data.category;
-            document.getElementById('tech-title').innerText = data.title;
-            document.getElementById('tech-description').innerText = data.desc;
-            document.getElementById('tech-stat-1').innerText = data.stat1;
-            document.getElementById('tech-stat-2').innerText = data.stat2;
-
-            ['ai', 'robotics', 'grids'].forEach(k => {
-                const btn = document.getElementById('tech-btn-' + k);
-                if (k === key) {
-                    btn.className = "w-full p-4 rounded-xl text-left bg-cyan-500/20 border border-cyan-400 flex items-center justify-between transition-all";
-                } else {
-                    btn.className = "w-full p-4 rounded-xl text-left glass-panel border border-slate-700 hover:border-cyan-500/50 flex items-center justify-between transition-all";
-                }
-            });
-        }
-
-        /* Carbon Savings Calculator */
-        function updateCalculator() {
-            const kwh = parseFloat(document.getElementById('input-kwh').value);
-            const solarPct = parseFloat(document.getElementById('input-solar').value);
-
-            document.getElementById('val-kwh').innerText = kwh + " kWh";
-            document.getElementById('val-solar').innerText = solarPct + "%";
-
-            const cleanEnergy = (kwh * 12) * (solarPct / 100);
-            const co2Saved = (cleanEnergy * 0.0007).toFixed(1);
-            const treesEq = Math.round(co2Saved * 23);
-
-            document.getElementById('res-co2').innerText = co2Saved + " Tons";
-            document.getElementById('res-trees').innerText = treesEq;
-        }
-
-        /* Contact Form Event Handler */
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const feedback = document.getElementById('form-feedback');
-            feedback.classList.remove('hidden');
-
+            display.style.opacity = '0';
             setTimeout(() => {
-                document.getElementById('contact-form').reset();
-            }, 500);
-
-            setTimeout(() => {
-                feedback.classList.add('hidden');
-            }, 4000);
+                display.textContent = `"${techFacts[randomIndex]}"`;
+                display.style.opacity = '1';
+            }, 200);
         }
 
-        /* Particle System Background */
-        const canvas = document.getElementById('particle-canvas');
+        /* -------------------------------------------------------------
+         * 3. CARBON FOOTPRINT & ECO IMPACT CALCULATOR LOGIC
+         * ------------------------------------------------------------- */
+        function calculateEcoImpact() {
+            const kwh = parseFloat(document.getElementById('kwh-input').value);
+            const solar = parseFloat(document.getElementById('solar-input').value) / 100;
+            const trees = parseFloat(document.getElementById('tree-input').value);
+
+            // Update UI Labels
+            document.getElementById('kwh-val').textContent = kwh + " kWh";
+            document.getElementById('solar-val').textContent = Math.round(solar * 100) + "%";
+            document.getElementById('tree-val').textContent = trees + " Trees";
+
+            // Formula Logic
+            // Baseline 1 kWh = ~0.82 kg CO2 in conventional grid
+            // Solar offsets this. Each tree sequesters ~22 kg CO2 annually.
+            const gridCo2 = kwh * 12 * 0.82; 
+            const solarOffset = gridCo2 * solar;
+            const treeOffset = trees * 22;
+            const totalCo2Saved = Math.round(solarOffset + treeOffset);
+
+            // Financial Savings approx ₹ 7 per kWh on solar share
+            const financialSavings = Math.round(kwh * 12 * solar * 7);
+
+            // Update DOM
+            document.getElementById('co2-result').textContent = totalCo2Saved.toLocaleString() + " kg";
+            document.getElementById('savings-result').textContent = "₹ " + financialSavings.toLocaleString() + " / yr";
+        }
+
+        /* -------------------------------------------------------------
+         * 4. FORM SUBMISSION HANDLER
+         * ------------------------------------------------------------- */
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const alertBox = document.getElementById('form-success-alert');
+            alertBox.classList.remove('hidden');
+            document.getElementById('contact-form').reset();
+        }
+
+        /* -------------------------------------------------------------
+         * 5. MOVING OBJECTS: INTERACTIVE CANVAS PHYSICS & FLOATING LEAVES
+         * ------------------------------------------------------------- */
+        const canvas = document.getElementById('ecoCanvas');
         const ctx = canvas.getContext('2d');
+
+        let width, height;
         let particles = [];
-        let w = canvas.width = window.innerWidth;
-        let h = canvas.height = window.innerHeight;
+        let leaves = [];
 
-        window.addEventListener('resize', () => {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-            initParticles();
-        });
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
 
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Particle Class for Glowing Eco-Orbs
         class Particle {
             constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
-                this.color = Math.random() > 0.5 ? '#00f3ff' : '#10b981';
+                this.reset();
             }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
 
-                if (this.x < 0) this.x = w;
-                if (this.x > w) this.x = 0;
-                if (this.y < 0) this.y = h;
-                if (this.y > h) this.y = 0;
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2.5 + 1;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = -Math.random() * 0.8 - 0.2; // Floating upward
+                this.alpha = Math.random() * 0.6 + 0.2;
+                this.color = Math.random() > 0.5 ? '#00ff88' : '#4ade80';
             }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+                    this.reset();
+                    this.y = height + 10;
+                }
+            }
+
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = 0.25;
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
                 ctx.fill();
+                ctx.restore();
             }
         }
 
-        function initParticles() {
+        // Animated Floating Green Leaf Class
+        class FloatingLeaf {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = -20 - Math.random() * 50;
+                this.size = Math.random() * 12 + 10;
+                this.vy = Math.random() * 0.8 + 0.5;
+                this.vx = Math.sin(Math.random() * Math.PI) * 0.5;
+                this.angle = Math.random() * Math.PI * 2;
+                this.angularVelocity = (Math.random() - 0.5) * 0.02;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+
+            update() {
+                this.y += this.vy;
+                this.x += Math.sin(this.y * 0.01) * 0.8 + this.vx;
+                this.angle += this.angularVelocity;
+
+                if (this.y > height + 30) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
+
+                // Draw Simple Leaf Shape
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size);
+                ctx.quadraticCurveTo(this.size / 2, 0, 0, this.size);
+                ctx.quadraticCurveTo(-this.size / 2, 0, 0, -this.size);
+                ctx.fillStyle = '#22c55e';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#00ff88';
+                ctx.fill();
+
+                // Leaf Center Vein
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size);
+                ctx.lineTo(0, this.size);
+                ctx.strokeStyle = '#14532d';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        // Initialize Particles and Leaves
+        function initCanvasObjects() {
             particles = [];
-            const count = Math.floor((w * h) / 18000);
-            for (let i = 0; i < count; i++) {
+            leaves = [];
+            const particleCount = Math.min(Math.floor(width / 20), 60);
+            const leafCount = Math.min(Math.floor(width / 70), 20);
+
+            for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
-        }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, w, h);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
+            for (let i = 0; i < leafCount; i++) {
+                leaves.push(new FloatingLeaf());
             }
-            requestAnimationFrame(animateParticles);
         }
 
-        /* Initialization On Window Load */
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Update & Render Eco Particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Update & Render Floating Physics Leaves
+            leaves.forEach(l => {
+                l.update();
+                l.draw();
+            });
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // START CANVAS ANIMATION ON LOAD
         window.onload = function() {
-            initParticles();
-            animateParticles();
-            animateCounters();
-            updateCalculator();
+            initCanvasObjects();
+            animateCanvas();
+            calculateEcoImpact(); // Initial Eco calculation setup
         };
     </script>
 </body>
 </html>
-```
