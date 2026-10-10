@@ -1,77 +1,751 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech for Tomorrow | Home</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <header>
-    <div class="logo-container">
-      <div class="logo-icon">T3</div>
-      <div class="logo-text">TechForTomorrow</div>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="science.html">Science</a></li>
-        <li><a href="innovation.html">Innovation</a></li>
-        <li><a href="sustainability.html">Sustainability</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <h1>Tech for Tomorrow</h1>
-    <p>Exploring Science, Innovation, and Sustainability for a Smarter Future.</p>
-    <a href="science.html" class="btn">Explore Technologies</a>
-  </section>
-
-  <main class="container">
-    <h2 class="section-title">Core Pillars of Tomorrow</h2>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech for Tomorrow | Science, Innovation & Sustainability</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyberDark: '#070b19',
+                        cyberCard: 'rgba(15, 23, 42, 0.75)',
+                        neonCyan: '#00f3ff',
+                        neonEmerald: '#10b981',
+                        neonTeal: '#14b8a6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 10px rgba(0,243,255,0.2)' },
+                            '100%': { boxShadow: '0 0 25px rgba(0,243,255,0.6)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <div class="grid">
-      <div class="card">
-        <h3>🔬 Advanced Science</h3>
-        <p>Discover breakthroughs in quantum computing, space exploration, and biotechnology shaping human history.</p>
-      </div>
-      <div class="card">
-        <h3>💡 Cutting-Edge Innovation</h3>
-        <p>Explore how Artificial Intelligence, automation, and smart robotics are transforming everyday life.</p>
-      </div>
-      <div class="card">
-        <h3>🌱 Green Sustainability</h3>
-        <p>Learn how clean energy, circular economics, and eco-friendly tech protect our planet.</p>
-      </div>
-    </div>
+    <style>
+        /* Custom UI Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070b19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 243, 255, 0.25);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 243, 255, 0.6);
+        }
 
-    <div class="interactive-box">
-      <h3>Interactive Innovation Pulse</h3>
-      <p id="pulse-text">Click the button below to generate a random Tech-Fact of the Future!</p>
-      <br>
-      <button class="btn" onclick="generateFact()">Generate Tech Fact</button>
-    </div>
-  </main>
+        /* Glassmorphism background styles */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+        }
 
-  <footer>
-    <p>&copy; 2026 Tech for Tomorrow | Designed for The Graphic Artist Competition</p>
-  </footer>
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(13, 148, 136, 0.25);
+        }
 
-  <script>
-    const facts = [
-      "Solar energy could supply 100% of global electricity by combining smart grid storage.",
-      "Quantum computers can solve complex molecular simulations in seconds instead of millennia.",
-      "Vertical farming uses 95% less water than traditional agriculture through automated hydroponics.",
-      "AI-driven smart grids reduce carbon emissions by optimizing energy usage in real-time."
-    ];
+        .glow-border {
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
 
-    function generateFact() {
-      const randomIndex = Math.floor(Math.random() * facts.length);
-      document.getElementById("pulse-text").innerText = facts[randomIndex];
-    }
-  </script>
+        /* Background Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-cyberDark text-slate-100 dark:bg-cyberDark dark:text-slate-100 transition-colors duration-300 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Interactive Particle Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <header class="sticky top-0 z-50 glass-panel border-b border-cyan-500/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Website Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-500 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-cyan-500/30">
+                    <i class="fa-solid fa-atom animate-spin-slow"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
+                        TECH<span class="text-white dark:text-white">4</span>TOMORROW
+                    </span>
+                    <p class="text-[10px] font-mono tracking-widest text-cyan-400/80 uppercase">Science • Innovation • Sustainability</p>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation Menu -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-medium">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-cyan-400 bg-cyan-500/10 border border-cyan-500/30">
+                    <i class="fa-solid fa-house"></i><span>Home</span>
+                </button>
+                <button onclick="switchTab('science')" id="nav-science" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
+                    <i class="fa-solid fa-microscope"></i><span>Science</span>
+                </button>
+                <button onclick="switchTab('innovation')" id="nav-innovation" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
+                    <i class="fa-solid fa-lightbulb"></i><span>Innovation</span>
+                </button>
+                <button onclick="switchTab('sustainability')" id="nav-sustainability" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
+                    <i class="fa-solid fa-leaf"></i><span>Sustainability</span>
+                </button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50">
+                    <i class="fa-solid fa-envelope"></i><span>Contact</span>
+                </button>
+            </nav>
+
+            <!-- Theme Toggle & Mobile Menu Trigger -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl glass-panel text-cyan-400 hover:text-cyan-200 hover:border-cyan-400 transition-all">
+                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl glass-panel text-cyan-400">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-cyan-500/20 px-4 py-4 space-y-2">
+            <button onclick="switchTab('home')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-cyan-400 bg-cyan-500/10 flex items-center space-x-3"><i class="fa-solid fa-house w-5"></i><span>Home</span></button>
+            <button onclick="switchTab('science')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-microscope w-5"></i><span>Science</span></button>
+            <button onclick="switchTab('innovation')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-lightbulb w-5"></i><span>Innovation</span></button>
+            <button onclick="switchTab('sustainability')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-leaf w-5"></i><span>Sustainability</span></button>
+            <button onclick="switchTab('contact')" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 flex items-center space-x-3"><i class="fa-solid fa-envelope w-5"></i><span>Contact</span></button>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-grow z-10 relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="tab-home" class="tab-content block space-y-12">
+            <!-- Hero Banner -->
+            <div class="relative rounded-3xl glass-panel p-8 md:p-14 overflow-hidden border border-cyan-500/30 shadow-2xl">
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span>Contest Entry • The Graphic Artist 2026</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                        Empowering Tomorrow Through <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">Science & Eco-Innovation</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-lg md:text-xl font-light leading-relaxed">
+                        Discover how cutting-edge research, artificial intelligence, and circular technologies unite to shape a clean, high-tech, and sustainable world.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <button onclick="switchTab('innovation')" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2">
+                            <span>Explore Innovations</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button onclick="switchTab('sustainability')" class="px-8 py-4 rounded-xl glass-panel text-cyan-400 font-semibold border border-cyan-500/40 hover:bg-cyan-500/10 transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span>Eco Calculator</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated Impact Metrics Counter -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 text-center">
+                    <p class="text-3xl lg:text-4xl font-extrabold text-cyan-400 font-mono" id="stat-co2">0</p>
+                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">Giga-Tons CO2 Offset Target</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-teal-500/20 text-center">
+                    <p class="text-3xl lg:text-4xl font-extrabold text-teal-300 font-mono" id="stat-energy">0</p>
+                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">% Renewable Grid Target</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-emerald-500/20 text-center">
+                    <p class="text-3xl lg:text-4xl font-extrabold text-emerald-400 font-mono" id="stat-quantum">0</p>
+                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">Quantum Compute Speedup</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 text-center">
+                    <p class="text-3xl lg:text-4xl font-extrabold text-cyan-300 font-mono" id="stat-waste">0</p>
+                    <p class="text-xs text-slate-400 mt-1 uppercase font-mono">% Circular Waste Reuse</p>
+                </div>
+            </div>
+
+            <!-- Three Core Pillars Overview -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div onclick="switchTab('science')" class="glass-panel p-6 rounded-2xl hover:border-cyan-400/60 transition-all cursor-pointer group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-dna"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-cyan-400 transition-colors">Advanced Science</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Quantum physics, genomic editing, and space research paving new paths for discovery.</p>
+                </div>
+                <div onclick="switchTab('innovation')" class="glass-panel p-6 rounded-2xl hover:border-teal-400/60 transition-all cursor-pointer group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-teal-400 transition-colors">Digital Innovation</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Autonomous AI networks, swarm robotics, and zero-latency smart city systems.</p>
+                </div>
+                <div onclick="switchTab('sustainability')" class="glass-panel p-6 rounded-2xl hover:border-emerald-400/60 transition-all cursor-pointer group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-emerald-400 transition-colors">Green Sustainability</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Circular economy paradigms, clean hydrogen power, and zero-carbon agriculture.</p>
+                </div>
+            </div>
+
+            <!-- Interactive Widget: AI Tech-Fact Pulse Generator -->
+            <div class="glass-panel p-8 rounded-2xl border border-cyan-500/20 text-center space-y-4">
+                <div class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono uppercase">
+                    Interactive Pulse • AI Tech Generator
+                </div>
+                <blockquote id="quote-display" class="text-xl md:text-2xl font-serif italic text-slate-200 max-w-3xl mx-auto">
+                    "Solar energy could supply 100% of global power when combined with AI smart grid storage."
+                </blockquote>
+                <p id="quote-author" class="text-sm font-mono text-cyan-400 font-semibold">— Tech For Tomorrow Insight Hub</p>
+                <button onclick="generateNewFact()" class="mt-4 px-6 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-sm font-medium transition-all inline-flex items-center space-x-2">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>Generate New Tech Fact</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="tab-science" class="tab-content hidden space-y-8">
+            <div class="border-b border-cyan-500/20 pb-6">
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">
+                    Scientific Frontiers & Research
+                </h2>
+                <p class="text-slate-400 mt-2">Breakthrough research laying the foundations for tomorrow's technology.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Research Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl space-y-4 border border-cyan-500/20 hover:border-cyan-400 transition-all">
+                    <div class="w-full h-44 rounded-xl bg-slate-900 border border-cyan-500/20 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
+                        <i class="fa-solid fa-atom text-6xl text-cyan-400 animate-pulse"></i>
+                        <span class="absolute bottom-3 right-3 text-xs font-mono bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded">Quantum Physics</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100">Room-Temp Quantum Computing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Qubit stabilization techniques allow quantum processors to execute complex climate models in seconds without deep cryogenic cooling.
+                    </p>
+                    <div class="pt-2 flex justify-between items-center text-xs font-mono text-cyan-400">
+                        <span>Readiness: 94%</span>
+                        <span>Lab Validation</span>
+                    </div>
+                </div>
+
+                <!-- Research Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl space-y-4 border border-cyan-500/20 hover:border-teal-400 transition-all">
+                    <div class="w-full h-44 rounded-xl bg-slate-900 border border-teal-500/20 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
+                        <i class="fa-solid fa-dna text-6xl text-teal-400 animate-pulse"></i>
+                        <span class="absolute bottom-3 right-3 text-xs font-mono bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded">Genomics</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100">CRISPR 3.0 Climate Crops</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Gene editing tailored for extreme climate resilience, allowing staple crops to grow in high-salinity and drought-prone regions.
+                    </p>
+                    <div class="pt-2 flex justify-between items-center text-xs font-mono text-teal-400">
+                        <span>Readiness: 89%</span>
+                        <span>Field Testing</span>
+                    </div>
+                </div>
+
+                <!-- Research Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl space-y-4 border border-cyan-500/20 hover:border-emerald-400 transition-all">
+                    <div class="w-full h-44 rounded-xl bg-slate-900 border border-emerald-500/20 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
+                        <i class="fa-solid fa-solar-panel text-6xl text-emerald-400 animate-pulse"></i>
+                        <span class="absolute bottom-3 right-3 text-xs font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Materials Science</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100">Perovskite Photovoltaics</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Flexible tandem solar films providing over 35% efficiency, enabling solar energy harvesting on windows and clothing.
+                    </p>
+                    <div class="pt-2 flex justify-between items-center text-xs font-mono text-emerald-400">
+                        <span>Readiness: 97%</span>
+                        <span>Deployment</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-innovation" class="tab-content hidden space-y-8">
+            <div class="border-b border-cyan-500/20 pb-6">
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-400">
+                    Emerging Tech & AI Innovations
+                </h2>
+                <p class="text-slate-400 mt-2">Explore active intelligent systems reinventing logistics, energy, and robotics.</p>
+            </div>
+
+            <!-- Interactive Innovation Radar Selector -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-panel p-6 rounded-2xl space-y-4">
+                    <h3 class="text-xl font-bold text-cyan-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Select Innovation Pillar</span>
+                    </h3>
+
+                    <div class="space-y-3">
+                        <button onclick="selectTech('ai')" id="tech-btn-ai" class="w-full p-4 rounded-xl text-left bg-cyan-500/20 border border-cyan-400 flex items-center justify-between transition-all">
+                            <span class="font-semibold text-cyan-300"><i class="fa-solid fa-brain mr-2"></i>Autonomous AI Networks</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                        <button onclick="selectTech('robotics')" id="tech-btn-robotics" class="w-full p-4 rounded-xl text-left glass-panel border border-slate-700 hover:border-cyan-500/50 flex items-center justify-between transition-all">
+                            <span class="font-semibold text-slate-300"><i class="fa-solid fa-robot mr-2"></i>Swarm Robotics & Eco-Drones</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                        <button onclick="selectTech('grids')" id="tech-btn-grids" class="w-full p-4 rounded-xl text-left glass-panel border border-slate-700 hover:border-cyan-500/50 flex items-center justify-between transition-all">
+                            <span class="font-semibold text-slate-300"><i class="fa-solid fa-bolt mr-2"></i>AI Smart Energy Grids</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono uppercase" id="tech-category">
+                            Artificial Intelligence
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-100" id="tech-title">Autonomous AI Networks</h3>
+                        <p class="text-slate-300 leading-relaxed text-sm" id="tech-description">
+                            Self-optimizing AI nodes that coordinate complex infrastructure, urban traffic, and industrial energy demands with instant responsiveness.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-slate-800 grid grid-cols-2 gap-4 text-center">
+                        <div class="p-3 bg-slate-900/60 rounded-xl">
+                            <p class="text-xs text-slate-400 font-mono">Efficiency Boost</p>
+                            <p class="text-xl font-bold text-cyan-400" id="tech-stat-1">+450%</p>
+                        </div>
+                        <div class="p-3 bg-slate-900/60 rounded-xl">
+                            <p class="text-xs text-slate-400 font-mono">Global Adoption</p>
+                            <p class="text-xl font-bold text-emerald-400" id="tech-stat-2">92%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-sustainability" class="tab-content hidden space-y-8">
+            <div class="border-b border-cyan-500/20 pb-6">
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+                    Sustainability & Circular Economy
+                </h2>
+                <p class="text-slate-400 mt-2">Zero-waste technological designs tailored to restore planet health.</p>
+            </div>
+
+            <!-- Interactive Eco Calculator Widget -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl border border-emerald-500/30 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100">Green Energy Impact Calculator</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label class="text-slate-300">Monthly Household Electricity (kWh)</label>
+                                <span class="text-emerald-400 font-mono font-bold" id="val-kwh">400 kWh</span>
+                            </div>
+                            <input type="range" id="input-kwh" min="100" max="1500" value="400" step="10" class="w-full accent-emerald-400 cursor-pointer" oninput="updateCalculator()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label class="text-slate-300">Solar Energy Adoption (%)</label>
+                                <span class="text-emerald-400 font-mono font-bold" id="val-solar">60%</span>
+                            </div>
+                            <input type="range" id="input-solar" min="0" max="100" value="60" step="5" class="w-full accent-emerald-400 cursor-pointer" oninput="updateCalculator()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 md:p-8 rounded-2xl border border-emerald-500/30 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono uppercase text-emerald-400 tracking-wider">Estimated Annual Impact</span>
+                        <h4 class="text-2xl font-bold text-slate-100 mt-1">Your Clean Energy Potential</h4>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 my-6">
+                        <div class="p-4 bg-emerald-950/40 rounded-xl border border-emerald-500/20 text-center">
+                            <i class="fa-solid fa-tree text-emerald-400 text-2xl mb-1"></i>
+                            <p class="text-2xl font-black text-emerald-400" id="res-trees">46</p>
+                            <p class="text-xs text-slate-400">Trees Planted Equivalent</p>
+                        </div>
+                        <div class="p-4 bg-cyan-950/40 rounded-xl border border-cyan-500/20 text-center">
+                            <i class="fa-solid fa-cloud text-cyan-400 text-2xl mb-1"></i>
+                            <p class="text-2xl font-black text-cyan-400" id="res-co2">2.0 Tons</p>
+                            <p class="text-xs text-slate-400">CO2 Emissions Avoided</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-400 italic text-center">
+                        Metrics modeled on standard clean energy grid conversion factors.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-contact" class="tab-content hidden space-y-8">
+            <div class="border-b border-cyan-500/20 pb-6">
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+                    Connect With Our Team
+                </h2>
+                <p class="text-slate-400 mt-2">Questions or feedback for The Graphic Artist contest entry? Send us a message.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 space-y-6">
+                    <h3 class="text-xl font-bold text-cyan-400">Contest Overview</h3>
+                    <div class="space-y-4 text-sm text-slate-300">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-trophy text-cyan-400 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-slate-100">Contest Name</p>
+                                <p class="text-slate-400">The Graphic Artist Website Designing Contest</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-bullseye text-cyan-400 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-slate-100">Theme Topic</p>
+                                <p class="text-slate-400">Tech for Tomorrow - Science, Innovation & Sustainability</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-code text-cyan-400 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-slate-100">Build Tech</p>
+                                <p class="text-slate-400">HTML5, Tailwind CSS & JavaScript (Single File)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 glass-panel p-6 md:p-8 rounded-2xl border border-cyan-500/30">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Participant Name</label>
+                                <input type="text" id="form-name" required placeholder="Enter full name" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Email Address</label>
+                                <input type="email" id="form-email" required placeholder="name@domain.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Subject</label>
+                            <select id="form-subject" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors">
+                                <option value="general">General Innovation Query</option>
+                                <option value="science">Scientific Research Feedback</option>
+                                <option value="contest">Contest Evaluation</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Message</label>
+                            <textarea id="form-message" rows="4" required placeholder="Type your message here..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Transmit Message</span>
+                        </button>
+                    </form>
+
+                    <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm text-center font-medium">
+                        <i class="fa-solid fa-circle-check mr-2"></i>Message received! Thank you for reaching out.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="glass-panel border-t border-cyan-500/20 mt-16 z-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 space-y-4 md:space-y-0">
+            <div class="flex items-center space-x-2">
+                <span class="font-mono text-cyan-400 font-bold">TECH4TOMORROW</span>
+                <span>© 2026 The Graphic Artist Website Designing Contest</span>
+            </div>
+            <div class="flex space-x-6">
+                <button onclick="switchTab('home')" class="hover:text-cyan-400 transition-colors">Home</button>
+                <button onclick="switchTab('science')" class="hover:text-cyan-400 transition-colors">Science</button>
+                <button onclick="switchTab('innovation')" class="hover:text-cyan-400 transition-colors">Innovation</button>
+                <button onclick="switchTab('sustainability')" class="hover:text-cyan-400 transition-colors">Sustainability</button>
+                <button onclick="switchTab('contact')" class="hover:text-cyan-400 transition-colors">Contact</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Dynamic Tab Navigation Logic */
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.add('hidden'));
+
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.className = "nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50";
+            });
+
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "nav-btn px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 text-cyan-400 bg-cyan-500/10 border border-cyan-500/30";
+            }
+
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Mobile Menu Toggle */
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        /* Theme Switcher */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                icon.className = 'fa-solid fa-sun text-lg';
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-moon text-lg';
+            }
+        }
+
+        /* Animated Statistics Counter */
+        function animateCounters() {
+            const targets = {
+                'stat-co2': 50,
+                'stat-energy': 100,
+                'stat-quantum': 1000,
+                'stat-waste': 98
+            };
+
+            for (const [id, target] of Object.entries(targets)) {
+                let current = 0;
+                const increment = Math.ceil(target / 40);
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    const elem = document.getElementById(id);
+                    if (elem) elem.innerText = current + (id === 'stat-quantum' ? 'x' : '');
+                }, 30);
+            }
+        }
+
+        /* Fact Generator Data */
+        const techFacts = [
+            "Solar power capacity can fulfill global electricity needs when paired with distributed grid storage.",
+            "Quantum processors can evaluate chemical molecular reactions in seconds rather than centuries.",
+            "Vertical indoor hydro-farms consume up to 95% less water than traditional open farming.",
+            "AI-optimizing energy grids continuously minimize carbon footprints in smart cities."
+        ];
+
+        function generateNewFact() {
+            const randomIndex = Math.floor(Math.random() * techFacts.length);
+            document.getElementById('quote-display').innerText = `"${techFacts[randomIndex]}"`;
+        }
+
+        /* Interactive Tech Pillar Radar */
+        const techData = {
+            ai: {
+                category: "Artificial Intelligence",
+                title: "Autonomous AI Networks",
+                desc: "Self-optimizing AI nodes that coordinate complex infrastructure, urban traffic, and industrial energy demands with instant responsiveness.",
+                stat1: "+450%",
+                stat2: "92%"
+            },
+            robotics: {
+                category: "Automation & Robotics",
+                title: "Swarm Robotics & Eco-Drones",
+                desc: "Autonomous drone arrays deployed for precision reforestation, forest fire detection, and ocean trash collection.",
+                stat1: "+320%",
+                stat2: "88%"
+            },
+            grids: {
+                category: "Clean Energy Grids",
+                title: "AI Smart Energy Grids",
+                desc: "Predictive energy networks that seamlessly adjust solar and wind distribution across city hubs.",
+                stat1: "+500%",
+                stat2: "96%"
+            }
+        };
+
+        function selectTech(key) {
+            const data = techData[key];
+            if (!data) return;
+
+            document.getElementById('tech-category').innerText = data.category;
+            document.getElementById('tech-title').innerText = data.title;
+            document.getElementById('tech-description').innerText = data.desc;
+            document.getElementById('tech-stat-1').innerText = data.stat1;
+            document.getElementById('tech-stat-2').innerText = data.stat2;
+
+            ['ai', 'robotics', 'grids'].forEach(k => {
+                const btn = document.getElementById('tech-btn-' + k);
+                if (k === key) {
+                    btn.className = "w-full p-4 rounded-xl text-left bg-cyan-500/20 border border-cyan-400 flex items-center justify-between transition-all";
+                } else {
+                    btn.className = "w-full p-4 rounded-xl text-left glass-panel border border-slate-700 hover:border-cyan-500/50 flex items-center justify-between transition-all";
+                }
+            });
+        }
+
+        /* Carbon Savings Calculator */
+        function updateCalculator() {
+            const kwh = parseFloat(document.getElementById('input-kwh').value);
+            const solarPct = parseFloat(document.getElementById('input-solar').value);
+
+            document.getElementById('val-kwh').innerText = kwh + " kWh";
+            document.getElementById('val-solar').innerText = solarPct + "%";
+
+            const cleanEnergy = (kwh * 12) * (solarPct / 100);
+            const co2Saved = (cleanEnergy * 0.0007).toFixed(1);
+            const treesEq = Math.round(co2Saved * 23);
+
+            document.getElementById('res-co2').innerText = co2Saved + " Tons";
+            document.getElementById('res-trees').innerText = treesEq;
+        }
+
+        /* Contact Form Event Handler */
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const feedback = document.getElementById('form-feedback');
+            feedback.classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('contact-form').reset();
+            }, 500);
+
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 4000);
+        }
+
+        /* Particle System Background */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.color = Math.random() > 0.5 ? '#00f3ff' : '#10b981';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.25;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.floor((w * h) / 18000);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, w, h);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        /* Initialization On Window Load */
+        window.onload = function() {
+            initParticles();
+            animateParticles();
+            animateCounters();
+            updateCalculator();
+        };
+    </script>
 </body>
 </html>
+```
